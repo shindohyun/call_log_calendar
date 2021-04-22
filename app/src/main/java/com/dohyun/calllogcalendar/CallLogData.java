@@ -5,13 +5,18 @@ import java.util.Date;
 public class CallLogData {
     private Date date;
     /*
+    연결된 통화
     INCOMING_TYPE
     OUTGOING_TYPE
+    ANSWERED_EXTERNALLY_TYPE
+
+    미연결된 통화
     MISSED_TYPE
-    VOICEMAIL_TYPE
     REJECTED_TYPE
     BLOCKED_TYPE
-    ANSWERED_EXTERNALLY_TYPE
+
+    보이스 메일
+    VOICEMAIL_TYPE
     */
     private int type;
     private int duration;

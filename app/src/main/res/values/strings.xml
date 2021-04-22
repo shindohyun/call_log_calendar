@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CallLogCalendar</string>
+    <string name="connected">Connected</string>
+    <string name="unconnected">Unconnected</string>
+    <string name="voice_mail">Voice Mail</string>
+    <string name="incoming">Incoming</string>
+    <string name="outgoing">Outgoing</string>
+    <string name="answered_externally">Answered Externally</string>
+    <string name="missed">Missed</string>
+    <string name="rejected">Rejected</string>
+    <string name="blocked">Blocked</string>
+    <string name="total">Total</string>
 </resources>

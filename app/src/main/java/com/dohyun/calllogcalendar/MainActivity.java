@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.dohyun.calllogcalendar.databinding.ActivityMainBinding;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+
 import static android.Manifest.permission.READ_CALL_LOG;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,17 +20,24 @@ public class MainActivity extends AppCompatActivity {
             READ_CALL_LOG
     };
 
+    private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if(!checkPermission()){
             requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
         }
 
-        MyApplication app = (MyApplication)getApplication();
-        app.callLogManager.loadData(this);
+        // setting calendar
+        binding.calendarView.setShowOtherDates(MaterialCalendarView.SHOW_OTHER_MONTHS);
+
+        // TODO: load call log data
+        //MyApplication app = (MyApplication)getApplication();
+        //app.callLogManager.loadData(this);
     }
 
     private boolean checkPermission() {
@@ -56,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(result){
-                    //TODO: Start
+                    //TODO: load call log data
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "앱을 종료합니다.", Toast.LENGTH_LONG).show();
