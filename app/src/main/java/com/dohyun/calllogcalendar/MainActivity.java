@@ -2,6 +2,7 @@ package com.dohyun.calllogcalendar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -28,14 +29,18 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if(!checkPermission()){
-            requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
-        }
+        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        binding.setViewModel(viewModel);
 
         // setting calendar
         binding.calendarView.setShowOtherDates(MaterialCalendarView.SHOW_OTHER_MONTHS);
 
         // TODO: load call log data
+
+        //        if(!checkPermission()){
+//            requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
+//        }
+
         //MyApplication app = (MyApplication)getApplication();
         //app.callLogManager.loadData(this);
     }
