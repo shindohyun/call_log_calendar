@@ -7,9 +7,12 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.dohyun.calllogcalendar.databinding.ActivityMainBinding;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import static android.Manifest.permission.READ_CALL_LOG;
@@ -30,19 +33,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        Presenter presenter = new Presenter() {
+            @Override
+            public void onClickRefreshButton() {
+                if(!checkPermission()){
+                    requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
+                }
+                // TODO: load call log data
+            }
+
+            @Override
+            public void onClickWeekModeCheckBox(View view, MaterialCalendarView materialCalendarView) {
+                if(((CheckBox)view).isChecked()){
+                    materialCalendarView.state().edit().setCalendarDisplayMode(CalendarMode.WEEKS).commit();
+                }
+                else{
+                    materialCalendarView.state().edit().setCalendarDisplayMode(CalendarMode.MONTHS).commit();
+                }
+            }
+        };
+
         binding.setViewModel(viewModel);
+        binding.setPresenter(presenter);
 
         // setting calendar
         binding.calendarView.setShowOtherDates(MaterialCalendarView.SHOW_OTHER_MONTHS);
-
-        // TODO: load call log data
-
-        //        if(!checkPermission()){
-//            requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
-//        }
-
-        //MyApplication app = (MyApplication)getApplication();
-        //app.callLogManager.loadData(this);
     }
 
     private boolean checkPermission() {
@@ -71,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(result){
-                    //TODO: load call log data
+                    // TODO: load call log data
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "앱을 종료합니다.", Toast.LENGTH_LONG).show();
@@ -82,5 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
         }
+    }
+
+    public interface Presenter{
+        void onClickRefreshButton();
+        void onClickWeekModeCheckBox(View view, MaterialCalendarView materialCalendarView);
     }
 }

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+        <variable
+            name="connected"
+            type="com.dohyun.calllogcalendar.MainViewModel.Connected" />
+        <variable
+            name="unconnected"
+            type="com.dohyun.calllogcalendar.MainViewModel.Unconnected" />
+        <variable
+            name="voiceMailCnt"
+            type="androidx.databinding.ObservableInt" />
     </data>
 
     <TableLayout
@@ -11,7 +20,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="12dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,11 +40,17 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="@{@string/connected_cnt_format(connected.incomingCnt)}"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="@{@string/connected_sec_format(connected.incomingSec)}"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -47,11 +62,17 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/connected_cnt_format(connected.outgoingCnt)}"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/connected_sec_format(connected.outgoingSec)}"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -63,11 +84,17 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/connected_cnt_format(connected.answExternCnt)}"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/connected_sec_format(connected.answExternSec)}"/>
         </TableRow>
 
         <TableRow
@@ -80,17 +107,23 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="@{@string/connected_cnt_format(connected.totalCnt)}"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:text="@{@string/connected_sec_format(connected.totalSec)}"/>
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="12dp" >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,7 +143,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="2" />
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/unconnected_format(unconnected.missed)}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -123,7 +162,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="2" />
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/unconnected_format(unconnected.rejected)}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -136,7 +181,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="2" />
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/unconnected_format(unconnected.blocked)}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -149,29 +200,34 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="2" />
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/unconnected_format(unconnected.total)}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" >
+            android:layout_marginTop="12dp" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="3"
-                android:layout_weight="1"
                 android:text="@string/voice_mail"
                 android:textSize="20sp" />
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="3" />
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:text="@{@string/voice_mail_format(voiceMailCnt)}"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
         </TableRow>
     </TableLayout>
 </layout>

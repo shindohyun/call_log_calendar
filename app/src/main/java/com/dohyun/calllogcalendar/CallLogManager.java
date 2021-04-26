@@ -3,7 +3,6 @@ package com.dohyun.calllogcalendar;
 import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.provider.CallLog;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +15,7 @@ public class CallLogManager {
     }
 
     public void loadData(ContextWrapper contextWrapper){
+        // TODO: Async
         Cursor cursor = contextWrapper.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
 
         int numberIndex = cursor.getColumnIndex(CallLog.Calls.NUMBER);

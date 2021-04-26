@@ -13,4 +13,8 @@
     <string name="week_mode">Week Mode</string>
     <string name="week">week</string>
     <string name="month">month</string>
+    <string name="connected_cnt_format">%d건</string>
+    <string name="connected_sec_format">%d초</string>
+    <string name="unconnected_format">%d건</string>
+    <string name="voice_mail_format">%d건</string>
 </resources>
