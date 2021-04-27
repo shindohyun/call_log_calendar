@@ -32,14 +32,17 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        //MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        // TODO: AndroidViewModel을 상속 받은 클래스의 생성 방법, 정리하기
+        MainViewModel viewModel = new ViewModelProvider(
+                this,
+                new ViewModelProvider.AndroidViewModelFactory(getApplication())
+        ).get(MainViewModel.class);
+
         Presenter presenter = new Presenter() {
             @Override
             public void onClickRefreshButton() {
-                if(!checkPermission()){
-                    requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
-                }
-                // TODO: load call log data
+                resetData();
             }
 
             @Override
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         // setting calendar
         binding.calendarView.setShowOtherDates(MaterialCalendarView.SHOW_OTHER_MONTHS);
+
+        resetData();
     }
 
     private boolean checkPermission() {
@@ -86,17 +91,39 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(result){
-                    // TODO: load call log data
+                    loadData();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "앱을 종료합니다.", Toast.LENGTH_LONG).show();
-                    finishAffinity();
+                    Toast.makeText(getApplicationContext(), "통화 기록에 액세스할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
                 break;
         }
+    }
+
+    private void resetData(){
+        if(!checkPermission()){
+            requestPermissions(PERMISSIONS, PERMISSION_REQUEST_CODE);
+        }
+
+        loadData();
+    }
+
+    private void loadData(){
+        binding.getViewModel().reqCallLogData(this, true, new ExecutorCallback<Boolean>() {
+            @Override
+            public void onComplete(ExecutorResult<Boolean> result) {
+                if(result instanceof ExecutorResult.Success){
+
+                }
+                else if(result instanceof  ExecutorResult.Error){
+                    Log.e(TAG, ((ExecutorResult.Error)result).exception.getMessage());
+                    Toast.makeText(getApplicationContext(), "통화 기록을 가져올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     public interface Presenter{

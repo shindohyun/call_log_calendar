@@ -11,20 +11,15 @@
             name="viewModel"
             type="com.dohyun.calllogcalendar.MainViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:padding="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayoutMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,37 +33,26 @@
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutMenu"
-            app:layout_constraintBottom_toTopOf="@+id/checkBoxWeekMode"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
         <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/checkBoxWeekMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:text="@string/week_mode"
-            app:layout_constraintTop_toBottomOf="@id/calendarView"
-            app:layout_constraintBottom_toTopOf="@id/viewCallLogTable"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             android:onClick="@{(view)->presenter.onClickWeekModeCheckBox(view, calendarView)}"/>
 
-        <include
-            layout="@layout/view_call_log_table"
-            android:id="@+id/viewCallLogTable"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxWeekMode"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            bind:connected="@{viewModel.connected}"
-            bind:unconnected="@{viewModel.unconnected}"
-            bind:voiceMailCnt="@{viewModel.voiceMailCnt}"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                layout="@layout/view_call_log_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:connected="@{viewModel.connected}"
+                bind:unconnected="@{viewModel.unconnected}"
+                bind:voiceMailCnt="@{viewModel.voiceMailCnt}"/>
+        </ScrollView>
+    </LinearLayout>
 </layout>

@@ -14,8 +14,13 @@ public class CallLogManager {
         callLogDataList = new ArrayList<>();
     }
 
+    public ArrayList<CallLogData> getCallLogDataList() {
+        return callLogDataList;
+    }
+
     public void loadData(ContextWrapper contextWrapper){
-        // TODO: Async
+        callLogDataList.clear();
+
         Cursor cursor = contextWrapper.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
 
         int numberIndex = cursor.getColumnIndex(CallLog.Calls.NUMBER);

@@ -1,13 +1,31 @@
 package com.dohyun.calllogcalendar;
 
+import android.app.Application;
+import android.content.ContextWrapper;
+import android.os.Handler;
+
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableInt;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.AndroidViewModel;
 
-public class MainViewModel extends ViewModel {
+import java.util.ArrayList;
+import java.util.concurrent.Executor;
+
+public class MainViewModel extends AndroidViewModel {
+    private final Handler handler;
+    private final Executor executor;
+    private final CallLogManager callLogManager;
     private Connected connected;
     private Unconnected unconnected;
     private final ObservableInt voiceMailCnt = new ObservableInt();
+
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+        handler = ((MyApplication)application).mainThreadHandler;
+        executor = ((MyApplication)application).executorService;
+        callLogManager = ((MyApplication)application).callLogManager;
+    }
 
     public Connected getConnected() {
         if(connected == null){
@@ -27,8 +45,44 @@ public class MainViewModel extends ViewModel {
         return voiceMailCnt;
     }
 
-    public void loadCallLogData(){
+    public void reqCallLogData(ContextWrapper contextWrapper, boolean load, ExecutorCallback<Boolean> callback){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    if(load){
+                        callLogManager.loadData(contextWrapper);
+                    }
+                    changeData(callLogManager.getCallLogDataList());
 
+                    ExecutorResult<Boolean> result = new ExecutorResult.Success<>(true);
+                    notifyLoadCallLogDataResult(result, callback);
+
+                }catch (Exception e){
+                    ExecutorResult<Boolean> result = new ExecutorResult.Error<>(e);
+                    notifyLoadCallLogDataResult(result, callback);
+                }
+
+            }
+        });
+    }
+
+    private void changeData(ArrayList<CallLogData> callLogDataList){
+        for(CallLogData callLogData: callLogDataList){
+            // TODO: 조건 검색
+        }
+    }
+
+    private void notifyLoadCallLogDataResult(
+            final ExecutorResult<Boolean> result,
+            final  ExecutorCallback<Boolean> callback){
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                callback.onComplete(result);
+            }
+        });
     }
 
     public class Connected extends BaseObservable {
