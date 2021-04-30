@@ -2,15 +2,28 @@
     <!-- Base application theme. -->
     <style name="Theme.CallLogCalendar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/checkbox_selection</item>
+        <item name="colorPrimaryVariant">@color/app_status_bar</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/checkbox_selection</item>
+        <item name="colorSecondaryVariant">@color/app_status_bar</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="CalendarHeaderText" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textColor">@color/calendar_header_font</item>
+    </style>
+
+    <style name="CalendarWeekDayText" parent="TextAppearance.AppCompat.Small.Inverse">
+        <item name="android:textColor">@color/calendar_weekday_font</item>
+    </style>
+
+    <style name="CalendarDateText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/calendar_date_font</item>
+    </style>
+
 </resources>

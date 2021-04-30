@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="app_status_bar">#0F0F0F</color>
+    <color name="app_background">#282828</color>
+    <color name="app_tint">#DFDFDF</color>
+
+    <color name="bg_ripple">#A0A0A0</color>
+
+    <color name="calendar_background">#323232</color>
+    <color name="calendar_header_font">#D5D5D5</color>
+    <color name="calendar_weekday_font">#B3B3B3</color>
+    <color name="calendar_date_font">#D5D5D5</color>
+    <color name="calendar_selection">#7158e2</color>
+    <color name="checkbox_selection">#7158e2</color>
+
+    <color name="table_font">#DFDFDF</color>
 </resources>

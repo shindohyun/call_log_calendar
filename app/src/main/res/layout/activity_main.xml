@@ -15,12 +15,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="8dp"
+        android:background="@color/app_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imageButtonLoad"
+                app:layout_constraintHorizontal_bias="1.0"
+                android:layout_marginEnd="10dp"
+                android:padding="5dp"
+                android:background="@drawable/bg_ripple"
+                android:src="@drawable/ic_round_refresh_24"
+                android:tint="@color/app_tint"
+                android:onClick="@{()->presenter.onClickResetButton(presenter, checkBoxDayMode, checkBoxWeekMode, calendarView)}"/>
+            <ImageButton
+                android:id="@+id/imageButtonLoad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
@@ -28,20 +45,49 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                android:onClick="@{()->presenter.onClickRefreshButton()}"/>
+                android:padding="5dp"
+                android:background="@drawable/bg_ripple"
+                android:src="@drawable/ic_round_arrow_circle_down_24"
+                android:tint="@color/app_tint"
+                android:onClick="@{()->presenter.onClickLoadButton()}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent" />
+            android:layout_width="match_parent"
+            android:background="@color/calendar_background"
+            app:mcv_headerTextAppearance="@style/CalendarHeaderText"
+            app:mcv_weekDayTextAppearance="@style/CalendarWeekDayText"
+            app:mcv_dateTextAppearance="@style/CalendarDateText"
+            app:mcv_arrowColor="@color/calendar_header_font"
+            app:mcv_selectionColor="@color/calendar_selection" />
 
-        <androidx.appcompat.widget.AppCompatCheckBox
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/week_mode"
-            android:onClick="@{(view)->presenter.onClickWeekModeCheckBox(view, calendarView)}"/>
+            android:orientation="horizontal"
+            android:gravity="right">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkBoxDayMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:buttonTint="@drawable/selector_checkbox"
+                android:onClick="@{(view)->presenter.onClickDayModeCheckBox(view)}"
+                android:text="@string/day_mode"
+                android:textColor="@color/app_tint" />
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/checkBoxWeekMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/week_mode"
+                android:onClick="@{(view)->presenter.onClickWeekModeCheckBox(view, calendarView)}"
+                android:textColor="@color/app_tint"
+                android:buttonTint="@drawable/selector_checkbox"/>
+
+        </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
